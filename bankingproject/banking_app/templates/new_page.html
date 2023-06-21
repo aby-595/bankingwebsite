@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  h2 {
+    font-family: 'Bruno Ace SC', cursive;
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  #form-button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-family: 'Bruno Ace SC', cursive;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #form-button:hover {
+    background-color: #0056b3;
+  }
+
+  #form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+  }
+
+  label {
+    font-family: 'Bruno Ace SC', cursive;
+    font-size: 18px;
+    color: #333;
+    display: block;
+    margin-top: 15px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="email"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin-top: 5px;
+  }
+
+  select {
+    height: 38px;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 5px;
+  }
+
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: 'Bruno Ace SC', cursive;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+</style>
+
+<h2>New Page</h2>
+<button id="form-button">Show Form</button><br>
+
+<div id="form-container">
+  <form id="my-form">
+    {% csrf_token %}
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" required>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+      <option value="">Select</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label for="phone_number">Phone Number:</label>
+    <input type="tel" id="phone_number" name="phone_number" required>
+
+    <label for="mail_id">Email:</label>
+    <input type="email" id="mail_id" name="mail_id" required>
+
+    <label for="address">Address:</label>
+    <textarea id="address" name="address" rows="3" required></textarea>
+
+    <label for="district">District:</label>
+    <select id="district" name="district" required>
+      <option value="">Select</option>
+      <option value="Ernakulam">Ernakulam</option>
+      <option value="Thrissur">Thrissur</option>
+      <option value="Alappuzha">Alappuzha</option>
+      <option value="Kannur">Kannur</option>
+      <option value="Trivandrum">Trivandrum</option>
+    </select>
+
+    <label for="branch">Branch:</label>
+    <select id="branch" name="branch" required>
+      <option value="">Select</option>
+    </select>
+
+    <label for="account_type">Account Type:</label>
+    <select id="account_type" name="account_type" required>
+      <option value="">Select</option>
+      <option value="Savings Account">Savings Account</option>
+      <option value="Current Account">Current Account</option>
+      <!-- Add more account type options here -->
+    </select>
+
+    <label for="materials_provided">Materials Provided:</label><br>
+    <div class="checkbox-container">
+      <input type="checkbox" id="debit_card" name="materials_provided" value="Debit Card">
+      <label for="debit_card">Debit Card</label>
+    </div>
+    <div class="checkbox-container">
+      <input type="checkbox" id="credit_card" name="materials_provided" value="Credit Card">
+      <label for="credit_card">Credit Card</label>
+    </div>
+    <div class="checkbox-container">
+      <input type="checkbox" id="cheque_book" name="materials_provided" value="Cheque Book">
+      <label for="cheque_book">Cheque Book</label>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+document.getElementById("form-button").addEventListener("click", function () {
+  document.getElementById("form-container").style.display = "block";
+});
+
+document.getElementById("district").addEventListener("change", function () {
+  var selectedDistrict = this.value;
+  var branchSelect = document.getElementById("branch");
+
+  // Clear existing options
+  branchSelect.innerHTML = '<option value="">Select</option>';
+
+  // Replace with your dynamic options based on the selected district
+  if (selectedDistrict === "Ernakulam") {
+    branchSelect.innerHTML += '<option value="Aluva">Aluva</option>';
+    branchSelect.innerHTML += '<option value="Edapally">Edapally</option>';
+    branchSelect.innerHTML += '<option value="Vytilla">Vytilla</option>';
+  } else if (selectedDistrict === "Thrissur") {
+    branchSelect.innerHTML += '<option value="Thrissur City">Thrissur City</option>';
+    branchSelect.innerHTML += '<option value="Kodungallur">Kodungallur</option>';
+    branchSelect.innerHTML += '<option value="Athirappilly">Athirappilly</option>';
+  } else if (selectedDistrict === "Alappuzha") {
+    branchSelect.innerHTML += '<option value="Mavelikara">Mavelikara</option>';
+    branchSelect.innerHTML += '<option value="Chengannur">Chengannur</option>';
+    branchSelect.innerHTML += '<option value="Haripad">Haripad</option>';
+  } else if (selectedDistrict === "Kannur") {
+    branchSelect.innerHTML += '<option value="Thalassery">Thalassery</option>';
+    branchSelect.innerHTML += '<option value="Paithalmala">Paithalmala</option>';
+    branchSelect.innerHTML += '<option value="Ezhimala">Ezhimala</option>';
+  } else if (selectedDistrict === "Trivandrum") {
+    branchSelect.innerHTML += '<option value="Kalliyoor">Kalliyoor</option>';
+    branchSelect.innerHTML += '<option value="Cheruvakkal">Cheruvakkal</option>';
+    branchSelect.innerHTML += '<option value="Kadinamkulam">Kadinamkulam</option>';
+  }
+});
+
+document.getElementById("my-form").addEventListener("submit", function (event) {
+  event.preventDefault();
+  // Perform form submission logic using JavaScript or submit the form via AJAX
+  // You can use fetch or jQuery AJAX to submit the form data to the server
+  alert("Application accepted");
+
+  // Add the code for redirecting to the home page here
+  window.location.href = "{% url 'home' %}";
+});
+</script>
+
+{% endblock %}
