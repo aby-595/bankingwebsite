@@ -3,39 +3,54 @@
 {% block content %}
 <style>
     body {
-        background-color: #f8f9fa; /* Premium background color */
+        background-color: #2f2f2f; /* Premium background color */
+        margin: 0;
+        padding: 0;
+    }
+
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .login-form {
+        max-width: 400px;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        animation-duration: 1s;
+        animation-fill-mode: both;
+        animation-name: fadeInUp; /* Apply fadeInUp animation */
     }
 
     h2 {
         text-align: center;
         color: #007bff; /* Premium color - Blue */
+        font-size: 24px;
+        margin-bottom: 30px;
         animation-duration: 1s;
         animation-fill-mode: both;
         animation-name: fadeIn; /* Apply fadeIn animation */
     }
 
     form {
-        max-width: 300px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f5f5f5;
-        animation-duration: 1s;
-        animation-fill-mode: both;
-        animation-name: fadeIn; /* Apply fadeIn animation */
+        margin-bottom: 20px;
     }
 
     label {
         display: block;
         margin-bottom: 10px;
+        color: #333;
     }
 
     input[type="text"],
     input[type="password"] {
-        width: 94%;
-        padding: 8px;
-        margin-bottom: 10px;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
         border: 1px solid #ccc;
         border-radius: 4px;
     }
@@ -43,7 +58,7 @@
     button[type="submit"] {
         display: block;
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         background-color: #007bff; /* Premium color - Blue */
         color: #fff;
         border: none;
@@ -60,6 +75,7 @@
     p {
         text-align: center;
         margin-top: 10px;
+        color: #777;
     }
 
     a {
@@ -77,18 +93,34 @@
             opacity: 1;
         }
     }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 </style>
 
-<h2 class="animated fadeIn">Login</h2>
-<form method="POST" class="animated fadeIn">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <button type="submit">Submit</button>
-</form>
-<p class="animated fadeIn">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+<div class="login-container">
+    <div class="login-form animated fadeInUp">
+        <h2>Login</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Submit</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</div>
 
 <!-- Include Animate.css -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
