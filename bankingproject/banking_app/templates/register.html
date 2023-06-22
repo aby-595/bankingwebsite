@@ -2,6 +2,10 @@
 
 {% block content %}
 <style>
+    body {
+        background-color: #f8f9fa; /* Premium background color */
+    }
+
     h2 {
         font-family: 'Bruno Ace SC', cursive;
         font-size: 36px;
@@ -10,6 +14,9 @@
         margin-top: 30px;
         margin-bottom: 15px;
         text-align: center;
+        animation-duration: 1s;
+        animation-fill-mode: both;
+        animation-name: fadeIn; /* Apply fadeIn animation */
     }
 
     form {
@@ -19,6 +26,9 @@
         background-color: #f8f9fa;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation-duration: 1s;
+        animation-fill-mode: both;
+        animation-name: fadeIn; /* Apply fadeIn animation */
     }
 
     label {
@@ -31,7 +41,7 @@
 
     input[type="text"],
     input[type="password"] {
-        width: 100%;
+        width: 94%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -56,10 +66,21 @@
     button[type="submit"]:hover {
         background-color: #0056b3;
     }
+
+    /* Add animation classes */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
 </style>
 
-<h2>Register</h2>
-<form method="POST">
+<h2 class="animated fadeIn">Register</h2>
+<form method="POST" class="animated fadeIn">
     {% csrf_token %}
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
